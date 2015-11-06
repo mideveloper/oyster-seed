@@ -8,7 +8,7 @@ var Promise = global.Packages.Promise;
 module.exports = function () {
     
     return new Promise(function(done){
-        global.shape = require("node-oyster").Helpers.response;
+        global.shape = global.Packages.Oyster.Helpers.response;
         return done();
     });
     

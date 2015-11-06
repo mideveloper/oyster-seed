@@ -21,10 +21,10 @@ if ("production" === app.get("env")) {
     global.showExceptionToClient = false;
 }
 
-
-app.use(express.bodyParser()); //request bodyparsing to json
-app.use(express.methodOverride()); // enable PUT and DELETE http methods
-app.use(express.compress()); // compress response data with gzip / deflate
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override')
+app.use(bodyParser.json());
+app.use(methodOverride());
 
 // views
 app.set("views", __dirname + "/public/views"); // setting view path
@@ -35,9 +35,9 @@ app.use(global.Packages.Oyster.Middleware.allow_ajax); // allowing app to deal w
 app.engine("html", require("ejs").renderFile); //mapping html to ejs renderer for rendering html files
 app.use(global.Packages.Oyster.Middleware.param_object); // this middleware add method "" in request object that iterates all params in request object and create object
 
-app.use(app.router);
+//app.use(app.router);
 
-require("./routes")(app); // load all routes
+require("./appRoutes")(app); // load all routes
 
 app.use(global.Packages.Oyster.Middleware.error_handler); // to handle all the errors that are raised on app (should pass express cycle for e.g must call next(err); )
 
